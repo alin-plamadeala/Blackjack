@@ -7,4 +7,6 @@ public interface UserRepository extends Repository<User, Long> {
 
     User findByUsername(String username);
     User findById(int id);
+
+    void save(User user);
 }
