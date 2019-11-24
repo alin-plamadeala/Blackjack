@@ -58,9 +58,10 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
 
-
-        return "view-profile";
+        return "profile.html";
     }
 
 }
