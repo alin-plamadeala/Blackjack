@@ -1,4 +1,6 @@
-package com.blackjack.project;
+package com.blackjack.project.card;
+import com.blackjack.project.deck.Deck;
+
 import javax.persistence.*;
 
 @Entity

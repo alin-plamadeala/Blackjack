@@ -1,4 +1,4 @@
-package com.blackjack.project;
+package com.blackjack.project.card;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

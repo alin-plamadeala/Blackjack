@@ -1,4 +1,4 @@
-package com.blackjack.project;
+package com.blackjack.project.card;
 
 import org.springframework.data.repository.Repository;
 

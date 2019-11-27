@@ -1,4 +1,6 @@
-package com.blackjack.project;
+package com.blackjack.project.deck;
+
+import com.blackjack.project.card.Card;
 
 import javax.persistence.*;
 import java.util.Set;
