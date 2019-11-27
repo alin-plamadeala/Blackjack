@@ -58,6 +58,7 @@ public class UserController {
 
         return "login";
     }
+
     @GetMapping("/profile")
     public String profile(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());

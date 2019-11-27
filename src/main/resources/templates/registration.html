@@ -1,49 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'register')}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-<form th:action="@{/register}" method="post" th:object="${userForm}">
-<p><a th:href="@{/login}">Already have an account?</a></p>
+<form th:object="${userForm}" class="form-horizontal" method="post">
+    <input type="hidden" name="id" th:value="*{id}" />
+    <div class="form-group has-feedback">
+        <input
+                th:replace="~{fragments/inputField :: input ('Username', 'username', 'text')}" />
+        <input
+                th:replace="~{fragments/inputField :: input ('Password', 'password', 'password')}" />
+        <input
+                th:replace="~{fragments/inputField :: input ('Confirm Password', 'passwordConfirm', 'password')}" />
+        <input
+                th:replace="~{fragments/inputField :: input ('Email', 'email', 'text')}" />
+        <input
+                th:replace="~{fragments/inputField :: input ('First Name', 'firstName', 'text')}" />
+        <input
+                th:replace="~{fragments/inputField :: input ('Last Name', 'lastName', 'text')}" />
+        <input
+                th:replace="~{fragments/inputField :: input ('Birth Date', 'birthday', 'date')}" />
 
-<div class="form-group">
-    <label for="username"> <b>Username</b></label>
-    <input type="text" class="form-control" name="Username" placeholder="Enter Username" required
-           id="username" >
-
-    <label for="password"><b>Password</b></label>
-    <input class="form-control" name="password" placeholder="Enter Password"
-           required  type="password" id="password">
-
-    <label for="passwordConfirm"><b>Repeat Password</b></label>
-    <input class="form-control" name="passwordConfirm" placeholder="Repeat Password"
-           required type="password" id="passwordConfirm">
-
-    <label for="firstName"><b>First name</b></label>
-    <input class="form-control" name="Name and Surname" placeholder="Name and Surname" required
-           th:field="${userForm.firstName}" type="text" id="firstName">
-
-    <label for="lastName"><b>Last name</b></label>
-    <input class="form-control" name="Name and Surname" placeholder="Name and Surname" required
-           th:field="${userForm.lastName}" type="text" id="lastName">
-
-    <div style="position: relative">
-        <label for="dob"><b>Date of birth</b></label>
-        <input type="text" class="form-control" id="dob" th:field="${userForm.birthday}" placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"
-        pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"></div>
-
-    <label for="email"><b>Email address</b></label>
-    <input type="text" class="form-control" th:field="${userForm.email}" placeholder="Enter Email" name="email" required id="email">
-
-</div>
-
-
-<p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-<button class="btn btn-primary btn-lg btn-block">Register</button>
-
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default" type="submit">Register</button>
+        </div>
+    </div>
 </form>
+
 </body>
 </html>
