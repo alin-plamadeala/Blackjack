@@ -10,6 +10,6 @@ public class CardController {
     public String cards() {
         //List<Account> listAccounts = service.listAll();
         //model.addAttribute("listAccounts", listAccounts);
-        return "index";
+        return "show-cards";
     }
 }
