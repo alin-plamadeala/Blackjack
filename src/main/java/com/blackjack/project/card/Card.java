@@ -33,9 +33,6 @@ public class Card {
         this.img = img;
     }
 
-    public Card() {
-    }
-
     public CardType getType() {
         return type;
     }
