@@ -34,6 +34,9 @@ public class Hand {
             }
             totals = newTotals;
         }
+
+
+
     }
 
     public List<Card> getCards() {

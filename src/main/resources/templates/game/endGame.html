@@ -7,9 +7,10 @@
 
 <div>
     <h1>Dealers Hand</h1>
-    <p th:text="${session.game.dealersHand.toString()}"></p>
-
-
+    <th:block th:each="card : ${session.game.dealersHand.cards}">
+        <img th:src="@{'/images/cards/'+${card}+'.png'}" width="75">
+    </th:block>
+    <!--    <p th:text="${session.game.dealersHand.toString()}"></p>-->
     <h2>Totals</h2>
     <p th:text="${session.game.dealersHand.finalTotal()}"></p>
 
@@ -21,8 +22,10 @@
 
 <div>
     <h1>Players Hand</h1>
-    <p th:text="${session.game.playersHand.toString()}"></p>
-
+    <!--    <p th:text="${session.game.playersHand.toString()}"></p>-->
+    <th:block th:each="card : ${session.game.playersHand.cards}">
+        <img th:src="@{'/images/cards/'+${card}+'.png'}" width="75">
+    </th:block>
 
     <h2>Totals</h2>
     <p th:text="${session.game.playersHand.finalTotal()}"></p>

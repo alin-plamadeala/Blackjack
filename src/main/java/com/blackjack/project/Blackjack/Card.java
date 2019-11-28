@@ -35,7 +35,7 @@ public class Card {
         Character value = valuePrintMap.get(this.getIntValue());
         Character suit = suitPrintMap.get(this.getSuit());
 
-        return "[" + value + suit + "]";
+        return value + "" + suit ;
     }
 
     private static final Map<Value,Character> valuePrintMap;
@@ -61,14 +61,14 @@ public class Card {
     private static final Map<Suit,Character> suitPrintMap;
     static {
         Map<Suit,Character> m = new HashMap<Suit,Character>();
-        m.put(Suit.SPADE,'\u2660');
-        m.put(Suit.HEART,'\u2665');
-        m.put(Suit.DIAMOND,'\u2666');
-        m.put(Suit.CLUB,'\u2663');
-        //m.put(Suit.SPADE,'S');
-        //m.put(Suit.HEART,'H');
-        //m.put(Suit.DIAMOND,'D');
-        //m.put(Suit.CLUB,'C');
+//        m.put(Suit.SPADE,'\u2660');
+//        m.put(Suit.HEART,'\u2665');
+//        m.put(Suit.DIAMOND,'\u2666');
+//        m.put(Suit.CLUB,'\u2663');
+        m.put(Suit.SPADE,'S');
+        m.put(Suit.HEART,'H');
+        m.put(Suit.DIAMOND,'D');
+        m.put(Suit.CLUB,'C');
 
         suitPrintMap = Collections.unmodifiableMap(m);
     }
