@@ -27,6 +27,9 @@ public class Card {
         return id;
     }
 
+    public Card() {
+    }
+
     public Card(CardType type, CardValue value, String img) {
         this.type = type;
         this.value = value;

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="deck")
+@Table(name="decks")
 public class Deck {
 
     @Id
@@ -15,6 +15,9 @@ public class Deck {
 
     @OneToMany(mappedBy = "deck")
     private Set<Card> cards;
+
+    public Deck() {
+    }
 
     public Deck(Set<Card> cards) {
         this.cards = cards;

@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>show cards</title>
 </head>
 <body>
+<div class="cardsList" th:unless="${#lists.isEmpty(cardsList)}">
+    <h2> List of all cards</h2>
+    <table>
+    <thead>
+    <tr>
+        <th th:text="#{cardsList.img}">card</th>
+        <th th:text="#{cardsList.value}">card value</th>
+        <th th:text="#{cardsList.type}">type</th>
+    </tr>
+    </thead>
+        <tbody>
+        <tr th:each="card : ${cardsList}">
+            <td th:text="${card.img}">img</td>
+            <td th:text="${card.value}">1</td>
+            <td th:text="${card.type}">ace</td>
+        </tbody>
+    </table>
+</div>
 
-<h2> List of all cards</h2>
 
 </body>
 </html>
