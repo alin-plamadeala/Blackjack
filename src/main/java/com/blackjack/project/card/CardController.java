@@ -22,10 +22,10 @@ public class CardController {
     }
 
     //deal a new card
-    @GetMapping("/new")
-    public String newCard(Model model, Card card){
-        model.addAttribute("dealCard");
-        return "deal-cards";
+    @GetMapping("/card")
+    public String hitCard(Model model, Card card){
+        model.addAttribute("deal",card);
+        return "deal";
     }
 
 }
