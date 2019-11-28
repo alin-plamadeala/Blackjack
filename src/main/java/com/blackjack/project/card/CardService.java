@@ -17,7 +17,10 @@ public class CardService {
 
     public List<Card> findAll(){
         return cardRepository.findAll();
+    }
 
+    public Card findById(int id){
+        return cardRepository.findById(id);
     }
 
 }

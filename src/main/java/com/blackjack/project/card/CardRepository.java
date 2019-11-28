@@ -8,6 +8,8 @@ public interface CardRepository extends Repository<Card, Long> {
 
     List<Card> findAll();
 
+    Card findById(int id);
+
     void save(Card card);
 
 }
