@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blackjack</title>
+</head>
+<body>
+
+<div>
+    <h1>Dealers Hand</h1>
+    <p th:text="${session.game.dealersHand.toString()}"></p>
+
+    <h2>Totals</h2>
+    <p th:text="${session.game.dealersHand.totals}"></p>
+
+</div>
+
+<div>
+    <h1>Players Hand</h1>
+    <p th:text="${session.game.playersHand.toString()}"></p>
+
+
+    <h2>Totals</h2>
+    <p th:text="${session.game.playersHand.totals}"></p>
+
+</div>
+
+<div>
+    <form method="POST">
+        <input value="Hit" name="hit" type="submit" id="hitButton" class="submit_button">
+        <input value="Stand" name="stand" type="submit" id="standButton" class="submit_button">
+    </form>
+</div>
+
+</body>
+</html>
