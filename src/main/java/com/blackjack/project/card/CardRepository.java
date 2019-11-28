@@ -4,7 +4,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-public interface CardRepository extends Repository<Card, Long> {
+public interface CardRepository extends Repository<Card, Integer> {
 
     List<Card> findAll();
 

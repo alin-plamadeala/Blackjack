@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -23,10 +22,9 @@ public class CardController {
     }
 
     //deal a new card
-    @GetMapping("/new/{id}")
-    public String newCard(@PathVariable(name="id")int id, Model model){
-        Card dealCard=cardService.findById(id);
-        model.addAttribute("dealCard",dealCard);
+    @GetMapping("/new")
+    public String newCard(Model model, Card card){
+        model.addAttribute("dealCard");
         return "deal-cards";
     }
 
