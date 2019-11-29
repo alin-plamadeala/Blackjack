@@ -26,6 +26,10 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -61,9 +65,13 @@ public class UserController {
 
     @GetMapping("/profile")
     public String profile(Model model, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "profile";
+        if (principal == null){
+            return "redirect:/login";
+        }else {
+            User user = userService.findByUsername(principal.getName());
+            model.addAttribute("user", user);
+            return "profile";
+        }
     }
 
 

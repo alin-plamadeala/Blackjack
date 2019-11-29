@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("game")
-@RequestMapping("/")
+@RequestMapping("/play")
 public class GameController {
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome() {

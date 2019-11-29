@@ -1,81 +1,86 @@
 <!doctype html>
-<html th:fragment="layout (template, menu)" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+        th:fragment="layout (template, menu)">
+
 <head>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://kit.fontawesome.com/f67ccf96d4.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.ico}">
+
+    <title>BlackJack Online</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/resources/css/blackjack.css}"/>
 </head>
+
 <body>
-
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/}"><span></span></a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-                <span class="sr-only"><os-p>Toggle navigation</os-p></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+<nav class="navbar navbar-expand-lg ">
+    <a class="navbar-brand" th:href="@{/}"><span></span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <div style="display: none">
+            <a th:fragment="menuItem (path,active,title,icon,text)" class="nav-item" th:classappend="${active==menu ? 'active' : ''}"
+               th:href="@{__${path}__}" th:title="${title}">
+                    <i th:class="'fas fa-'+${icon}" class="glyphicon glyphicon-home" aria-hidden="true"></i>
+                    <span th:text="${text}">Template</span>
+            </a>
+            </div>
+            <a th:replace="::menuItem ('/','home','Home Page','home','Home')">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </a>
+            <a th:replace="::menuItem ('/play','play','Play','play','Play')">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <span>Home</span>
+            </a>
+            <a th:replace="::menuItem ('/ranks','ranks','Rankings','crown','Rankings')">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                <span>Home</span>
+            </a>
         </div>
-        <div class="navbar-collapse collapse" id="main-navbar">
-            <ul class="nav navbar-nav navbar-right">
-
-                <li th:fragment="menuItem (path,active,title,glyph,text)" class="active"
-                    th:class="${active==menu ? 'active' : ''}">
-                    <a th:href="@{__${path}__}" th:title="${title}">
-                        <span th:class="'glyphicon  glyphicon-'+${glyph}" class="glyphicon glyphicon-home"
-                              aria-hidden="true"></span>
-                        <span th:text="${text}">Template</span>
-                    </a>
-                </li>
-
-                <li th:replace="::menuItem ('/','home','home page','home','Home')">
+            <div class="navbar-nav ml-auto">
+                <th:block sec:authorize="isAnonymous()">
+                <a th:replace="::menuItem ('/login','login','Login','sign-in-alt','Sign In')">
                     <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                     <span>Home</span>
-                </li>
-                <!-- Rank -->
-                <li th:replace="::menuItem ('/show-rank','rank','rank','th-list','Rank')">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                    <span>Rank</span>
-                </li>
-                <!-- Color Theme -->
-
-                <!--Sign in -->
-                <li th:replace="::menuItem ('/add-account','accounts','accounts','th-log-in','Sign in')">
-                    <span class="glyphicon glyphicon-th-log-in" aria-hidden="true"></span>
-                    <span>Log in</span>
-                </li>
-
-                <!-- Log out -->
-                <li th:replace="::menuItem ('/logout','accounts','accounts','th-log-out','Log out')">
-                    <span class="glyphicon glyphicon-th-log-out" aria-hidden="true"></span>
-                    <span>Log out</span>
-                </li>
-
-            </ul>
+                </a>
+                <a th:replace="::menuItem ('/register','register','Register account','user-edit','Register')">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    <span>Home</span>
+                </a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <a th:replace="::menuItem ('/profile','profile','My Profile','user','My Profile')">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        <span>Home</span>
+                    </a>
+                </th:block>
+            </div>
         </div>
-    </div>
+
 </nav>
 
 
-<!-- footer logo -->
 <div class="container-fluid">
     <div class="container xd-container">
-
         <th:block th:include="${template}"/>
+
         <br/>
         <br/>
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center">
-                    <!-- place here image for footer -->
-                    <!--<img src="../static/resources/images/spring-pivotal-logo.png"
-                         th:src="@{/resources/images/spring-pivotal-logo.png}"
-                         alt="Sponsored by Team Synergy"/> -->
-                </div>
+                    <p>Made by Team Synergy</p></div>
             </div>
         </div>
     </div>
@@ -83,6 +88,8 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
+
 </html>
