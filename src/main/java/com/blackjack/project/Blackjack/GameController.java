@@ -18,12 +18,16 @@ public class GameController {
         return "game/mainMenu";
     }
 
-    //add bet feature when a new game starts
-    @RequestMapping(method = RequestMethod.POST, params="bet")
+    @RequestMapping(method = RequestMethod.POST)
     public String startNewGame(HttpSession session, User u) {
-        session.setAttribute("betAmount", u.getBetAmount());
         session.setAttribute("game", new BlackJackGame());
         return "game/inProgress";
+    }
+    //map player's bet
+    @RequestMapping(method=RequestMethod.POST, params="bet")
+    public String bet(HttpSession session, User u){
+        session.setAttribute("betAmount",u.getBetAmount());
+        return "game/mainMenu";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "hit")

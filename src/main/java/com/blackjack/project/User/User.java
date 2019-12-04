@@ -40,13 +40,6 @@ public class User {
     //coin amount player wishes to bet
     private int betAmount;
 
-    public int getFinalCoinAmount() {
-        return finalCoinAmount;
-    }
-
-    public void setFinalCoinAmount(int finalCoinAmount) {
-        this.finalCoinAmount = finalCoinAmount;
-    }
 
     public int getBetAmount() {
         return betAmount;
@@ -55,6 +48,7 @@ public class User {
     public void setBetAmount(int betAmount) {
         this.betAmount = betAmount;
     }
+
     //    private final Set<GrantedAuthority> authorities = new HashSet<>();
 
 

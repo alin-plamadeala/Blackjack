@@ -6,11 +6,10 @@
 <!-------------------------- bet ------------------------------->
 <div class="total">Total Coins : <span id="coins">100</span></div>
 <div>
-    <input type="text" class="form-control">
-    <p th:text="${session.betAmount}"></p>
-</div>
+    <input type="text">
     <input value="Place Bet" name="bet" type="submit" id="betButton" class="submit_button">
 </div>
+<p th:text="${session.betAmount}"></p>
 <!-- end bet-->
 <form method="POST">
     <input type="submit" value="New Game">

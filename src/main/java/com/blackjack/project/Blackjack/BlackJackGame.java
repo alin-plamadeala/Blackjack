@@ -16,7 +16,7 @@ public class BlackJackGame {
     @Autowired
     private DealerHandResolver dealerHandResolver;
 
-    public BlackJackGame(){
+    public BlackJackGame() {
         this.shoe = new Shoe(6);
 
         dealersHand = new Hand();
@@ -27,14 +27,15 @@ public class BlackJackGame {
         playersHand.addCard(shoe.draw());
 
         //include player´s bet each time a new game starts
-        playerBet=new User();
+        playerBet = new User();
         playerBet.getBetAmount();
 
     }
 
-    public void setPlayerBet(User amount){
-        this.playerBet=amount;
+    public void setPlayerBet(User amount) {
+        this.playerBet = amount;
     }
+
     public Hand getDealersHand() {
         return dealersHand;
     }
@@ -51,19 +52,19 @@ public class BlackJackGame {
         this.dealersHand = hand;
     }
 
-    public void playerHit(){
+    public void playerHit() {
         playersHand.addCard(shoe.draw());
     }
 
-    public void dealerHit(){
+    public void dealerHit() {
         dealersHand.addCard(shoe.draw());
     }
 
 
     public boolean playerBusted() {
         boolean allTotalsBusted = true;
-        for(Integer totals : playersHand.getTotals()){
-            if (totals <= 21){
+        for (Integer totals : playersHand.getTotals()) {
+            if (totals <= 21) {
                 allTotalsBusted = false;
             }
         }
@@ -72,8 +73,8 @@ public class BlackJackGame {
 
     //Return false if any total is less than 21
     public boolean dealerBusted() {
-        for(Integer totals : dealersHand.getTotals()){
-            if (totals <= 21){
+        for (Integer totals : dealersHand.getTotals()) {
+            if (totals <= 21) {
                 return false;
             }
         }
@@ -89,28 +90,27 @@ public class BlackJackGame {
     //If any total is >= 17 but not a bust do no hit
     private boolean dealerBelowSeventeen() {
         for (Integer totals : getDealersHand().getTotals()) {
-            if (totals >= 17 && totals < 22){ //Do not hit if dealers has 17 or greater
+            if (totals >= 17 && totals < 22) { //Do not hit if dealers has 17 or greater
                 return false;
             }
         }
         return true;
     }
 
-    //method to get player´s bet updated after game is over
-    public void playerBet(){
+    //method to update player's play money
 
-    }
 
-    public String result(){
-        if (playerBusted() || dealersHand.blackJack()){
+
+    public String result() {
+        if (playerBusted() || dealersHand.blackJack()) {
             return "You lose! :(";
-        }else if (playersHand.blackJack()){
+        } else if (playersHand.blackJack()) {
             return "You win!";
-        }else if (playersHand.finalTotal().equals(dealersHand.finalTotal())){
+        } else if (playersHand.finalTotal().equals(dealersHand.finalTotal())) {
             return "Push";
-        }else if ( (playersHand.finalTotal() < dealersHand.finalTotal()) && (dealersHand.finalTotal() < 22)){
+        } else if ((playersHand.finalTotal() < dealersHand.finalTotal()) && (dealersHand.finalTotal() < 22)) {
             return "You lose! :(";
-        }else{
+        } else {
             return "You win!";
         }
     }
