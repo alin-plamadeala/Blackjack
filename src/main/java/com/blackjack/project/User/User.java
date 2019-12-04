@@ -38,8 +38,6 @@ public class User {
 
     private int coinAmount;
 
-    private boolean darkTheme;
-
 
 
     public User() {
@@ -118,13 +116,5 @@ public class User {
 
     public void setCoinAmount(int coinAmount) {
         this.coinAmount = coinAmount;
-    }
-
-    public boolean isDarkTheme() {
-        return darkTheme;
-    }
-
-    public void setDarkTheme(boolean darkTheme) {
-        this.darkTheme = darkTheme;
     }
 }
