@@ -31,23 +31,23 @@ public class User {
     private String email;
 
     //initial coin amount
-    @Transient
-    private int startCoinAmount=100;
+
+    public int getCoinAmount() {
+        return coinAmount;
+    }
+
+    public void setCoinAmount(int coinAmount) {
+        this.coinAmount = coinAmount;
+    }
+
+    private int coinAmount;
 
     //final coin amount when game is over
-    private int finalCoinAmount;
+    //private int finalCoinAmount;
 
     //coin amount player wishes to bet
-    private int betAmount;
+    //private int betAmount;
 
-
-    public int getBetAmount() {
-        return betAmount;
-    }
-
-    public void setBetAmount(int betAmount) {
-        this.betAmount = betAmount;
-    }
 
     //    private final Set<GrantedAuthority> authorities = new HashSet<>();
 
@@ -72,7 +72,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
 
     public String getPassword() {
@@ -123,11 +122,4 @@ public class User {
         this.email = email;
     }
 
-    public int getStartCoinAmount() {
-        return startCoinAmount;
-    }
-
-    public void setStartCoinAmount(int startCoinAmount) {
-        this.startCoinAmount = startCoinAmount;
-    }
 }

@@ -10,7 +10,25 @@ public class BlackJackGame {
     private Shoe shoe;
     private Hand dealersHand;
     private Hand playersHand;
-    private User playerBet;
+    //private User playerBet;
+    private int betAmount;
+    private User user;
+
+    public int getBetAmount() {
+        return betAmount;
+    }
+
+    public void setBetAmount(int betAmount) {
+        this.betAmount = betAmount;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     //todo: fix this so dealer's strategy can be injected
     @Autowired
@@ -27,14 +45,11 @@ public class BlackJackGame {
         playersHand.addCard(shoe.draw());
 
         //include player´s bet each time a new game starts
-        playerBet = new User();
-        playerBet.getBetAmount();
+        //playerBet = new User();
+        //playerBet.getBetAmount();
 
     }
 
-    public void setPlayerBet(User amount) {
-        this.playerBet = amount;
-    }
 
     public Hand getDealersHand() {
         return dealersHand;
@@ -98,12 +113,8 @@ public class BlackJackGame {
     }
 
     //method to update player's play money
-    public int updateCoins(){
-        //TODO add condition that does not accept bet amount higher than player start coins
-        /*if(playerBet.getBetAmount()>100){
-            return
-        }*/
-        return playerBet.getStartCoinAmount()-playerBet.getBetAmount();
+    public void updateAmount() {
+        user.setCoinAmount(user.getCoinAmount() - betAmount);
     }
 
 
@@ -111,12 +122,15 @@ public class BlackJackGame {
         if (playerBusted() || dealersHand.blackJack()) {
             return "You lose! :(";
         } else if (playersHand.blackJack()) {
+            user.setCoinAmount(user.getCoinAmount() + (int) Math.round(2.5 * betAmount));
             return "You win!";
         } else if (playersHand.finalTotal().equals(dealersHand.finalTotal())) {
+            user.setCoinAmount(user.getCoinAmount() + betAmount);
             return "Push";
         } else if ((playersHand.finalTotal() < dealersHand.finalTotal()) && (dealersHand.finalTotal() < 22)) {
             return "You lose! :(";
         } else {
+            user.setCoinAmount(user.getCoinAmount() + 2*betAmount);
             return "You win!";
         }
     }

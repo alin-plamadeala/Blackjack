@@ -4,14 +4,16 @@
 <h3>Place your bet and Click to start a new game</h3>
 
 <!-------------------------- bet ------------------------------->
-<div class="total">Total Coins : <span id="coins">100</span></div>
+<div class="total">Total Coins : <span id="coins">100</span>
+
 <div>
-    <input type="text">
-    <input value="Place Bet" name="bet" type="submit" id="betButton" class="submit_button">
+
+
 </div>
 <p th:text="${session.betAmount}"></p>
 <!-- end bet-->
 <form method="POST">
+    <input type="text" name="amount">
     <input type="submit" value="New Game">
 </form>
 
