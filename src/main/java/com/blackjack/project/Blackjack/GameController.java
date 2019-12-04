@@ -23,10 +23,13 @@ public class GameController {
         session.setAttribute("game", new BlackJackGame());
         return "game/inProgress";
     }
+
     //map player's bet
-    @RequestMapping(method=RequestMethod.POST, params="bet")
-    public String bet(HttpSession session, User u){
-        session.setAttribute("betAmount",u.getBetAmount());
+    @RequestMapping(method = RequestMethod.POST, params = "bet")
+    public String bet(HttpSession session, User u) {
+        session.setAttribute("betAmount", u.getBetAmount());
+        BlackJackGame game=(BlackJackGame ) session.getAttribute("game");
+        game.updateCoins();
         return "game/mainMenu";
     }
 
@@ -61,7 +64,6 @@ public class GameController {
     public String bet(HttpSession session){
         return "game/inProgress";
     }*/
-
 
 
 }

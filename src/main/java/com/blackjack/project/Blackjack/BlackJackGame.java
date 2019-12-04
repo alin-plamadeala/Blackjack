@@ -98,7 +98,13 @@ public class BlackJackGame {
     }
 
     //method to update player's play money
-
+    public int updateCoins(){
+        //TODO add condition that does not accept bet amount higher than player start coins
+        /*if(playerBet.getBetAmount()>100){
+            return
+        }*/
+        return playerBet.getStartCoinAmount()-playerBet.getBetAmount();
+    }
 
 
     public String result() {
