@@ -1,6 +1,7 @@
 package com.blackjack.project.Blackjack;
 
 
+import com.blackjack.project.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -9,6 +10,7 @@ public class BlackJackGame {
     private Shoe shoe;
     private Hand dealersHand;
     private Hand playersHand;
+    private User playerBet;
 
     //todo: fix this so dealer's strategy can be injected
     @Autowired
@@ -24,9 +26,15 @@ public class BlackJackGame {
         playersHand.addCard(shoe.draw());
         playersHand.addCard(shoe.draw());
 
+        //include player´s bet each time a new game starts
+        playerBet=new User();
+        playerBet.getBetAmount();
+
     }
 
-
+    public void setPlayerBet(User amount){
+        this.playerBet=amount;
+    }
     public Hand getDealersHand() {
         return dealersHand;
     }
@@ -86,6 +94,11 @@ public class BlackJackGame {
             }
         }
         return true;
+    }
+
+    //method to get player´s bet updated after game is over
+    public void playerBet(){
+
     }
 
     public String result(){

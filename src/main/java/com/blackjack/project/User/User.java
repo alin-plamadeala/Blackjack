@@ -2,15 +2,9 @@ package com.blackjack.project.User;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -36,9 +30,32 @@ public class User {
 
     private String email;
 
-    private int coinAmount;
+    //initial coin amount
+    @Transient
+    private int startCoinAmount=100;
 
-//    private final Set<GrantedAuthority> authorities = new HashSet<>();
+    //final coin amount when game is over
+    private int finalCoinAmount;
+
+    //coin amount player wishes to bet
+    private int betAmount;
+
+    public int getFinalCoinAmount() {
+        return finalCoinAmount;
+    }
+
+    public void setFinalCoinAmount(int finalCoinAmount) {
+        this.finalCoinAmount = finalCoinAmount;
+    }
+
+    public int getBetAmount() {
+        return betAmount;
+    }
+
+    public void setBetAmount(int betAmount) {
+        this.betAmount = betAmount;
+    }
+    //    private final Set<GrantedAuthority> authorities = new HashSet<>();
 
 
     public User() {
@@ -112,11 +129,11 @@ public class User {
         this.email = email;
     }
 
-    public int getCoinAmount() {
-        return coinAmount;
+    public int getStartCoinAmount() {
+        return startCoinAmount;
     }
 
-    public void setCoinAmount(int coinAmount) {
-        this.coinAmount = coinAmount;
+    public void setStartCoinAmount(int startCoinAmount) {
+        this.startCoinAmount = startCoinAmount;
     }
 }

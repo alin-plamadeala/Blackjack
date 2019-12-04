@@ -1,5 +1,6 @@
 package com.blackjack.project.Blackjack;
 
+import com.blackjack.project.User.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +18,10 @@ public class GameController {
         return "game/mainMenu";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String startNewGame(HttpSession session){
+    //add bet feature when a new game starts
+    @RequestMapping(method = RequestMethod.POST, params="bet")
+    public String startNewGame(HttpSession session, User u) {
+        session.setAttribute("betAmount", u.getBetAmount());
         session.setAttribute("game", new BlackJackGame());
         return "game/inProgress";
     }
@@ -27,10 +30,10 @@ public class GameController {
     public String hit(HttpSession session) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
         game.playerHit();
-        if(game.playerBusted()){
+        if (game.playerBusted()) {
             game.resolveDealerHand();
             return "game/endGame";
-        }else{
+        } else {
             return "game/inProgress";
         }
     }
@@ -41,11 +44,20 @@ public class GameController {
         game.resolveDealerHand();
         return "game/endGame";
     }
+
     @RequestMapping(method = RequestMethod.POST, params = "finish")
     public String finish(HttpSession session, SessionStatus status) {
         status.setComplete();
         return "game/mainMenu";
     }
+
+    //---------------- Bet -----------------
+    /*
+    @RequestMapping(method=RequestMethod.POST, params="bet")
+    public String bet(HttpSession session){
+        return "game/inProgress";
+    }*/
+
 
 
 }
