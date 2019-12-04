@@ -26,10 +26,7 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
+
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
