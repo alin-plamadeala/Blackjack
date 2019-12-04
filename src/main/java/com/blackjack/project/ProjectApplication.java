@@ -25,12 +25,6 @@ public class ProjectApplication {
         return messageSource;
     }
 
-    @Bean
-    public ResourceBundleThemeSource resourceBundleThemeSource() {
-        ResourceBundleThemeSource themeSource = new ResourceBundleThemeSource();
-        themeSource.setBasenamePrefix("theme/");
-        return themeSource;
-    }
 
 
 }

@@ -1,7 +1,9 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/xhtml"
 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:spring="http://www.springframework.org/tags"
         th:fragment="layout (template, menu)">
+
 
 <head>
 
@@ -17,11 +19,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/resources/css/blackjack.css}"/>
-
-    <th:block>
-        <link rel="stylesheet" th:href="@{/resources/css/blackjack_dark.css}"/>
-    </th:block>
+    <link rel="stylesheet" id="theme" th:href="@{/resources/css/blackjack.css}"/>
+<!--    <link rel="stylesheet" href="" type="text/css" />-->
 </head>
 
 <body>
@@ -74,9 +73,13 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 
 </nav>
 
-
+<div class="custom-control custom-switch float-right">
+    <input type="checkbox" class="custom-control-input" id="themeSwitch" onclick="toggle()">
+    <label class="custom-control-label" for="themeSwitch">Dark Mode</label>
+</div>
 <div class="container-fluid">
     <div class="container xd-container">
+
         <th:block th:include="${template}"/>
 
         <br/>
@@ -90,6 +93,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
     </div>
 </div>
 
+<script th:src="@{resources/js/themeToggle.js}"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
