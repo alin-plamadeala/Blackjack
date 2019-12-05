@@ -34,20 +34,19 @@ public class GameController {
     public String startNewGame(HttpSession session, @RequestParam("amount") int amount, Principal principal) {
         BlackJackGame game = new BlackJackGame();
         game.setUser(userService.findByUsername(principal.getName()));
+        game.setStartCoins(game.getStartCoins());
         game.setBetAmount(amount);
-        session.setAttribute("game", game);
-        game.updateAmount();
-        return "game/inProgress";
+        //evaluate if bet amount is not higher than start coins
+        if (game.getBetAmount() > game.getStartCoins()) {
+            //System.out.println("You can´t bet higher than what you have. Insert a new value!");
+            return "game/mainMenu";
+        }else {
+            session.setAttribute("game", game);
+            game.updateAmount();
+            return "game/inProgress";
+        }
     }
 
-
-    /*@RequestMapping(method = RequestMethod.POST, params = "bet")
-    public String bet(HttpSession session, User u) {
-        session.setAttribute("betAmount", u.getBetAmount());
-        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
-        //game.updateCoins();
-        return "game/mainMenu";
-    }*/
 
     @RequestMapping(method = RequestMethod.POST, params = "hit")
     public String hit(HttpSession session) {
@@ -71,18 +70,9 @@ public class GameController {
     @RequestMapping(method = RequestMethod.POST, params = "finish")
     public String finish(HttpSession session, SessionStatus status) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
-        User user= game.getUser();
+        User user = game.getUser();
         userRepository.save(user);
         status.setComplete();
         return "game/mainMenu";
     }
-
-    //---------------- Bet -------------------------------------------------
-    /*
-    @RequestMapping(method=RequestMethod.POST, params="bet")
-    public String bet(HttpSession session){
-        return "game/inProgress";
-    }*/
-
-
 }

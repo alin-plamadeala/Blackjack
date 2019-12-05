@@ -10,17 +10,27 @@ public class BlackJackGame {
     private Shoe shoe;
     private Hand dealersHand;
     private Hand playersHand;
-    //private User playerBet;
     private int betAmount;
     private User user;
+    //initial coins to start game
+    private int startCoins = 100;
 
     public int getBetAmount() {
         return betAmount;
     }
 
+    public void setStartCoins(int startCoins) {
+        this.startCoins = startCoins;
+    }
+
+    public int getStartCoins() {
+        return startCoins;
+    }
+
     public void setBetAmount(int betAmount) {
         this.betAmount = betAmount;
     }
+
 
     public User getUser() {
         return user;
@@ -43,11 +53,6 @@ public class BlackJackGame {
         playersHand = new Hand();
         playersHand.addCard(shoe.draw());
         playersHand.addCard(shoe.draw());
-
-        //include player´s bet each time a new game starts
-        //playerBet = new User();
-        //playerBet.getBetAmount();
-
     }
 
 
@@ -130,7 +135,7 @@ public class BlackJackGame {
         } else if ((playersHand.finalTotal() < dealersHand.finalTotal()) && (dealersHand.finalTotal() < 22)) {
             return "You lose! :(";
         } else {
-            user.setCoinAmount(user.getCoinAmount() + 2*betAmount);
+            user.setCoinAmount(user.getCoinAmount() + 2 * betAmount);
             return "You win!";
         }
     }

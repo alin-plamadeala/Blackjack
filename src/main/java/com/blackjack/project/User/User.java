@@ -30,7 +30,7 @@ public class User {
 
     private String email;
 
-    //initial coin amount
+    private int coinAmount;
 
     public int getCoinAmount() {
         return coinAmount;
@@ -40,7 +40,6 @@ public class User {
         this.coinAmount = coinAmount;
     }
 
-    private int coinAmount;
 
     //final coin amount when game is over
     //private int finalCoinAmount;
