@@ -1,0 +1,8 @@
+language: java
+jdk:
+- oraclejdk8
+deploy:
+  provider: heroku
+  api-key:
+    secure: c2af1f68-5242-4917-82b0-013030e29b2f
+  app: blackjack-mandatory
