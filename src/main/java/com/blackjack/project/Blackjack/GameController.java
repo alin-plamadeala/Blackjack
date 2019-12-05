@@ -68,6 +68,18 @@ public class GameController {
         return "game/endGame";
     }
 
+    @RequestMapping(method = RequestMethod.POST, params = "doubleUp")
+    public String doubleUp(HttpSession session) {
+        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
+        game.doubleUp();
+        if (game.playerBusted()) {
+            game.resolveDealerHand();
+            return "game/endGame";
+        } else {
+            return "game/inProgress";
+        }
+    }
+
     @RequestMapping(method = RequestMethod.POST, params = "finish")
     public String finish(HttpSession session, SessionStatus status) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");

@@ -75,6 +75,12 @@ public class BlackJackGame {
         dealersHand.addCard(shoe.draw());
     }
 
+    public int doubleUp() {
+        playerHit();
+        betAmount *= 2;
+        return betAmount;
+    }
+
 
     public boolean playerBusted() {
         boolean allTotalsBusted = true;
