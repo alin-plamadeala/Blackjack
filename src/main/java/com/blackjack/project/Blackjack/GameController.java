@@ -5,11 +5,13 @@ import com.blackjack.project.User.User;
 import com.blackjack.project.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -31,7 +33,7 @@ public class GameController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String startNewGame(HttpSession session, @RequestParam("amount") int amount, Principal principal) {
+    public String startNewGame(Model model, HttpSession session, @RequestParam("amount") int amount, Principal principal) {
         BlackJackGame game = new BlackJackGame();
         User user = userService.findByUsername(principal.getName());
         game.setUser(user);
@@ -39,7 +41,7 @@ public class GameController {
         game.setBetAmount(amount);
         //evaluate if bet amount is not higher than start coins
         if (game.getBetAmount() > user.getCoinAmount()) {
-            session.setAttribute("validate", "Amount is to high");
+            model.addAttribute("validate", "amount to high");
             return "game/mainMenu";
         }else {
             session.setAttribute("game", game);
