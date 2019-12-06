@@ -38,7 +38,7 @@ public class GameController {
         game.setBetAmount(amount);
         //evaluate if bet amount is not higher than start coins
         if (game.getBetAmount() > game.getStartCoins()) {
-            //System.out.println("You can´t bet higher than what you have. Insert a new value!");
+            System.out.println("You can´t bet higher than what you have. Insert a new value!");
             return "game/mainMenu";
         }else {
             session.setAttribute("game", game);
