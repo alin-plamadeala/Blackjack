@@ -2,15 +2,9 @@ package com.blackjack.project.User;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -38,7 +32,23 @@ public class User {
 
     private int coinAmount;
 
-//    private final Set<GrantedAuthority> authorities = new HashSet<>();
+    public int getCoinAmount() {
+        return coinAmount;
+    }
+
+    public void setCoinAmount(int coinAmount) {
+        this.coinAmount = coinAmount;
+    }
+
+
+    //final coin amount when game is over
+    //private int finalCoinAmount;
+
+    //coin amount player wishes to bet
+    //private int betAmount;
+
+
+    //    private final Set<GrantedAuthority> authorities = new HashSet<>();
 
 
     public User() {
@@ -61,7 +71,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
 
     public String getPassword() {
@@ -112,11 +121,4 @@ public class User {
         this.email = email;
     }
 
-    public int getCoinAmount() {
-        return coinAmount;
-    }
-
-    public void setCoinAmount(int coinAmount) {
-        this.coinAmount = coinAmount;
-    }
 }

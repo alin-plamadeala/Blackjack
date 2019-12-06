@@ -18,6 +18,9 @@
 </div>
 
 <div>
+    <p th:text="${session.game.betAmount}"></p>
+    <p th:text="${session.game.user.username}"></p>
+
     <h1>Players Hand</h1>
 <!--    <p th:text="${session.game.playersHand.toString()}"></p>-->
     <th:block th:each="card : ${session.game.playersHand.cards}">
