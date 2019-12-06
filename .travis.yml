@@ -1,11 +1,23 @@
 language: java
 jdk:
 - openjdk8
-deploy:
-  provider: heroku
-  api-key:
-    secure: c2af1f68-5242-4917-82b0-013030e29b2f
-  app: blackjack-mandatory
+
+jobs:
+  include:
+    deploy:
+      provider: heroku
+      app: blackjack-mandatory
+      api_key: c2af1f68-5242-4917-82b0-013030e29b2f
+      on: master
+    - stage: test production
+      script: 'curl http://blackjack-mandatory.herokuapp.com'
+    - stage: deploy to production
+      script: /bin/true
+      deploy:
+        app: blackjack-mandatory-staging
+        on: development
+    - stage: test staging
+      script: 'curl http://blackjack-mandatory-staging.herokuapp.com'
 
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
@@ -15,3 +27,5 @@ after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh failure $WEBHOOK_URL
+
+
