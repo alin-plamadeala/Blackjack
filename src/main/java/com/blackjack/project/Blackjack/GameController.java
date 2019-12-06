@@ -33,12 +33,13 @@ public class GameController {
     @RequestMapping(method = RequestMethod.POST)
     public String startNewGame(HttpSession session, @RequestParam("amount") int amount, Principal principal) {
         BlackJackGame game = new BlackJackGame();
-        game.setUser(userService.findByUsername(principal.getName()));
+        User user = userService.findByUsername(principal.getName());
+        game.setUser(user);
         game.setStartCoins(game.getStartCoins());
         game.setBetAmount(amount);
         //evaluate if bet amount is not higher than start coins
-        if (game.getBetAmount() > game.getStartCoins()) {
-            System.out.println("You can´t bet higher than what you have. Insert a new value!");
+        if (game.getBetAmount() > user.getCoinAmount()) {
+            session.setAttribute("validate", "Amount is to high");
             return "game/mainMenu";
         }else {
             session.setAttribute("game", game);
