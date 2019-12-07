@@ -13,19 +13,19 @@ public class BlackJackGame {
     private int betAmount;
     private User user;
     //initial coins to start game
-    private int startCoins = 100;
+    //private int startCoins = 100;
 
     public int getBetAmount() {
         return betAmount;
     }
 
-    public void setStartCoins(int startCoins) {
+   /* public void setStartCoins(int startCoins) {
         this.startCoins = startCoins;
     }
 
     public int getStartCoins() {
         return startCoins;
-    }
+    }*/
 
     public void setBetAmount(int betAmount) {
         this.betAmount = betAmount;
