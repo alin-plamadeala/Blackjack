@@ -117,9 +117,10 @@ public class BlackJackGame {
         return true;
     }
 
+
     //method to update player's play money
     public void updateAmount() {
-        user.setCoinAmount(user.getCoinAmount() - betAmount);
+         user.setCoinAmount(user.getCoinAmount() - betAmount);
     }
 
 

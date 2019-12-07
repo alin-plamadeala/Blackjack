@@ -41,13 +41,6 @@ public class User {
     }
 
 
-    //final coin amount when game is over
-    //private int finalCoinAmount;
-
-    //coin amount player wishes to bet
-    //private int betAmount;
-
-
     //    private final Set<GrantedAuthority> authorities = new HashSet<>();
 
 

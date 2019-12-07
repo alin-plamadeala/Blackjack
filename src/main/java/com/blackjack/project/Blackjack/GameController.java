@@ -33,15 +33,16 @@ public class GameController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String startNewGame(Model model, HttpSession session, @RequestParam("amount") int amount, Principal principal) {
+    public String startNewGame(Model model, HttpSession session, @RequestParam("amount") int amount,
+                               @RequestParam("coins")int coins, Principal principal) {
         BlackJackGame game = new BlackJackGame();
         User user = userService.findByUsername(principal.getName());
         game.setUser(user);
-        game.setStartCoins(game.getStartCoins());
+        user.setCoinAmount(coins);
         game.setBetAmount(amount);
         //evaluate if bet amount is not higher than start coins
         if (game.getBetAmount() > user.getCoinAmount()) {
-            model.addAttribute("validate", "amount to high");
+            model.addAttribute("validate", "amount too high");
             return "game/mainMenu";
         }else {
             session.setAttribute("game", game);

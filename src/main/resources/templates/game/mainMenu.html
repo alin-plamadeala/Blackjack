@@ -4,22 +4,20 @@
 <h3>Place your bet and Click to start a new game</h3>
 
 <!-------------------------- bet ------------------------------->
-<div class="total">Total Coins : <span id="coins">100</span></div>
+<!-- <div class="total">Total Coins : <span id="coins">100</span></div> -->
 
 <div>
 
 </div>
 <!--<p th:text="${session.game.betAmount}"></p> -->
-<!-- end bet-->
+
 <form method="POST">
-    <input type="text" name="amount">
-    <input type="submit" value="New Game">
+    <div class="#">Add coins: <input type="text" name="coins"></div>
+    <br>
+    <div class="#">Place bet: <input type="text" name="amount">
+        <input type="submit" value="New Game"></div>
     <p th:if="${validate}" th:text="${validate}"></p>
-    <!--evaluate if bet amount is higher than initial coins -->
-    <!--<div>
-    <p th:if="${session.game.betAmount} &gt; 100"></p>
-    <h3>You can´t bet higher than what you have. Insert a new value!</h3>
-    </div> -->
+
 </form>
 
 
