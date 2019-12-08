@@ -38,10 +38,10 @@ public class GameController {
         BlackJackGame game = new BlackJackGame();
         User user = userService.findByUsername(principal.getName());
         game.setUser(user);
-        user.setCoinAmount(coins);
+        user.setPlayCoins(coins);
         game.setBetAmount(amount);
-        //evaluate if bet amount is not higher than start coins
-        if (game.getBetAmount() > user.getCoinAmount()) {
+        //evaluate if bet amount is not higher than total player's coins = playCoins+coinAmount
+        if (game.getBetAmount() > (user.getPlayCoins()+user.getCoinAmount())) {
             model.addAttribute("validate", "amount too high");
             return "game/mainMenu";
         }else {
@@ -50,7 +50,6 @@ public class GameController {
             return "game/inProgress";
         }
     }
-
 
     @RequestMapping(method = RequestMethod.POST, params = "hit")
     public String hit(HttpSession session) {

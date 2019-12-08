@@ -120,7 +120,7 @@ public class BlackJackGame {
 
     //method to update player's play money
     public void updateAmount() {
-         user.setCoinAmount(user.getCoinAmount() - betAmount);
+         user.setCoinAmount((user.getPlayCoins()+user.getCoinAmount() )- betAmount);
     }
 
 
@@ -128,15 +128,15 @@ public class BlackJackGame {
         if (playerBusted() || dealersHand.blackJack()) {
             return "You lose! :(";
         } else if (playersHand.blackJack()) {
-            user.setCoinAmount(user.getCoinAmount() + (int) Math.round(2.5 * betAmount));
+            user.setCoinAmount(user.getPlayCoins() + (int) Math.round(2.5 * betAmount));
             return "You win!";
         } else if (playersHand.finalTotal().equals(dealersHand.finalTotal())) {
-            user.setCoinAmount(user.getCoinAmount() + betAmount);
+            user.setCoinAmount(user.getPlayCoins() + betAmount);
             return "Push";
         } else if ((playersHand.finalTotal() < dealersHand.finalTotal()) && (dealersHand.finalTotal() < 22)) {
             return "You lose! :(";
         } else {
-            user.setCoinAmount(user.getCoinAmount() + 2 * betAmount);
+            user.setCoinAmount(user.getPlayCoins() + 2 * betAmount);
             return "You win!";
         }
     }

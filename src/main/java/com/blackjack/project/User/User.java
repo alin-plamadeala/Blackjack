@@ -30,7 +30,19 @@ public class User {
 
     private String email;
 
+    //winnings
     private int coinAmount;
+
+    //coins chosen by player at game start
+    private int playCoins;
+
+    public int getPlayCoins() {
+        return playCoins;
+    }
+
+    public void setPlayCoins(int playCoins) {
+        this.playCoins = playCoins;
+    }
 
     public int getCoinAmount() {
         return coinAmount;
