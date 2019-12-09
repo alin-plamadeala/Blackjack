@@ -5,39 +5,55 @@
 </head>
 <body>
 
-<div>
-    <h1>Dealers Hand</h1>
-    <th:block th:each="card : ${session.game.dealersHand.cards}">
-        <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
+<div class="text-center">
+    <div class="row"><h1 class="col">Dealer's Hand</h1></div>
+    <div class="row justify-content-md-center">
+        <th:block th:each="card : ${session.game.dealersHand.cards}" class="col">
+            <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
+        </th:block>
+    </div>
+    <div class="row"><h5 class="col">Totals: [(${session.game.dealersHand.totals})]</h5></div>
+</div>
+
+<h1 class="row justify-content-md-center text-center">Your Hands</h1>
+
+<div class="row justify-content-md-center text-center">
+
+    <th:block th:each="hand, iter : ${session.game.playersHands}">
+        <div class="col">
+        <th:block th:each="card : ${hand.cards}">
+            <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
+        </th:block>
+
+            <h5>index hand: [(${iter.index})]</h5>
+            <h5>hand active : [(${hand.active})]</h5>
+            <h5>hand finished : [(${hand.finished})]</h5>
+            <h5>Totals: [(${hand.totals})]</h5>
+            <br>
+            <h5>Bet: [(${hand.bet})]<img th:src="@{/resources/images/coin.gif}" width="26px"></h5>
+        <div>
+            <th:block th:if="${hand.active}">
+            <form method="POST">
+                <input type="hidden" th:value="${iter.index}" name="hand">
+                <th:block th:if="${!session.game.handBusted(hand)}">
+                    <div th:if="${split} and ${handIndex == iter.index}">
+                        <th:block th:if="${validate}">
+                            <div class="alert alert-primary" role="alert">You don't have enough resources! </div>
+                        </th:block>
+                        <input value="Split" name="split" type="submit" id="splitButton" class="submit_button">
+                    </div>
+                    <input value="Hit" name="hit" type="submit" id="hitButton" class="submit_button">
+                </th:block>
+                <input value="Stand" name="stand" type="submit" id="standButton" class="submit_button">
+            </form>
+            </th:block>
+        </div>
+        </div>
     </th:block>
-<!--    <p th:text="${session.game.dealersHand.toString()}"></p>-->
-
-    <h2>Totals</h2>
-    <p th:text="${session.game.dealersHand.totals}"></p>
 
 </div>
 
-<div>
-    <p th:text="${session.game.betAmount}"></p>
-    <p th:text="${session.game.user.username}"></p>
 
-    <h1>Players Hand</h1>
-<!--    <p th:text="${session.game.playersHand.toString()}"></p>-->
-    <th:block th:each="card : ${session.game.playersHand.cards}">
-        <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
-    </th:block>
-
-    <h2>Totals</h2>
-    <p th:text="${session.game.playersHand.totals}"></p>
-
-</div>
-
-<div>
-    <form method="POST">
-        <input value="Hit" name="hit" type="submit" id="hitButton" class="submit_button">
-        <input value="Stand" name="stand" type="submit" id="standButton" class="submit_button">
-    </form>
-</div>
 
 </body>
 </html>

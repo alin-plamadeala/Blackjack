@@ -1,14 +1,20 @@
 package com.blackjack.project.Blackjack;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Hand {
 
+    private boolean active = false;
+    private boolean finished = false;
+    private double bet;
     private List<Card> cards;
     private List<Integer> totals;
 
-    public Hand() {
+    public Hand(double bet) {
+        this.bet = bet;
         totals = new ArrayList<Integer>();
         totals.add(0);
 
@@ -34,8 +40,6 @@ public class Hand {
             }
             totals = newTotals;
         }
-
-
     }
 
     public List<Card> getCards() {
@@ -48,6 +52,13 @@ public class Hand {
             sb.append(card.toString());
         }
         return sb.toString();
+    }
+
+    public boolean isPair(){
+        if(size()==2){
+            if (getCards().get(0).getIntValue() == getCards().get(1).getIntValue() && getCards().size() == 2) return true;
+        }
+        return false;
     }
 
     public int size() {
@@ -81,4 +92,27 @@ public class Hand {
         return (total > 21 && finalTotal > 21);
     }
 
+    public double getBet() {
+        return bet;
+    }
+
+    public void setBet(double bet) {
+        this.bet = bet;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
 }

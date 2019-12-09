@@ -30,7 +30,7 @@ public class User {
 
     private String email;
 
-    private int coinAmount;
+    private double coinAmount;
 
     public User() {
     }
@@ -101,11 +101,11 @@ public class User {
         this.email = email;
     }
 
-    public int getCoinAmount() {
+    public double getCoinAmount() {
         return coinAmount;
     }
 
-    public void setCoinAmount(int coinAmount) {
+    public void setCoinAmount(double coinAmount) {
         this.coinAmount = coinAmount;
     }
 
