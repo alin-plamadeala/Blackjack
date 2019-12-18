@@ -2,15 +2,9 @@ package com.blackjack.project.User;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -36,13 +30,10 @@ public class User {
 
     private String email;
 
-    private int coinAmount;
-
-    private boolean darkTheme;
-
-
+    private double coinAmount;
 
     public User() {
+        this.coinAmount = 500;
     }
 
     public int getId() {
@@ -61,7 +52,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
 
     public String getPassword() {
@@ -112,19 +102,12 @@ public class User {
         this.email = email;
     }
 
-    public int getCoinAmount() {
+    public double getCoinAmount() {
         return coinAmount;
     }
 
-    public void setCoinAmount(int coinAmount) {
+    public void setCoinAmount(double coinAmount) {
         this.coinAmount = coinAmount;
     }
 
-    public boolean isDarkTheme() {
-        return darkTheme;
-    }
-
-    public void setDarkTheme(boolean darkTheme) {
-        this.darkTheme = darkTheme;
-    }
 }

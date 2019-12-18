@@ -1,51 +1,136 @@
 package com.blackjack.project.Blackjack;
 
+import com.blackjack.project.User.Security.UserService;
+import com.blackjack.project.User.User;
+import com.blackjack.project.User.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 @SessionAttributes("game")
 @RequestMapping("/play")
 public class GameController {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome() {
-        return "game/mainMenu";
+    public String printWelcome(HttpSession session) {
+        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
+        if (game == null) {
+            return "game/mainMenu";
+        }
+    else {
+            return "game/inProgress";
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String startNewGame(HttpSession session){
-        session.setAttribute("game", new BlackJackGame());
-        return "game/inProgress";
+    public String startNewGame(Model model, HttpSession session, @RequestParam("amount") int amount, Principal principal) {
+            User user = userService.findByUsername(principal.getName());
+            //evaluate if bet amount is not higher than start coins
+            model.addAttribute("validate", false);
+            if (amount < 1 || amount > 1000 || amount > user.getCoinAmount() || amount % 5 != 0) {
+                model.addAttribute("validate", true);
+                return "game/mainMenu";
+            }else {
+                BlackJackGame game = new BlackJackGame(amount);
+                game.setUser(user);
+                session.setAttribute("game", game);
+                int index = 0;
+                for (Hand hand : game.getPlayersHands()) {
+                    if (hand.isPair()) {
+                        model.addAttribute("handIndex", index);
+                        model.addAttribute("split", true);
+                    }
+                    index++;
+                }
+            }
+                return "game/inProgress";
     }
 
+
     @RequestMapping(method = RequestMethod.POST, params = "hit")
-    public String hit(HttpSession session) {
+    public String hit(HttpSession session, @RequestParam("hand") int handIndex) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
-        game.playerHit();
-        if(game.playerBusted()){
+        Hand hand = game.getPlayersHands().get(handIndex);
+        game.playerHit(hand);
+        if (game.playerBustedAllHands() || game.playerDoneAllHands()) {
             game.resolveDealerHand();
             return "game/endGame";
-        }else{
+        } else {
             return "game/inProgress";
         }
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "stand")
-    public String stand(HttpSession session) {
+    public String stand(HttpSession session, @RequestParam("hand") int handIndex) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
-        game.resolveDealerHand();
-        return "game/endGame";
+        game.getPlayersHands().get(handIndex).setActive(false);
+        game.getPlayersHands().get(handIndex).setFinished(true);
+
+        if (game.getPlayersHands().size() > handIndex+1){
+            game.getPlayersHands().get(handIndex+1).setActive(true);
+        }else if (game.getPlayersHands().size() == handIndex+1){
+            for (int i = 0; i < game.getPlayersHands().size(); i++){
+                if (!game.getPlayersHands().get(i).isFinished()){
+                    game.getPlayersHands().get(i).setActive(true);
+                    break;
+                }
+            }
+        }
+
+        if (game.playerBustedAllHands() || game.playerDoneAllHands()) {
+            game.resolveDealerHand();
+            return "game/endGame";
+        } else {
+            return "game/inProgress";
+        }
     }
+
+    @RequestMapping(method = RequestMethod.POST, params = "split")
+    public String split(HttpSession session, Model model, @RequestParam("hand") int handIndex) {
+        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
+        model.addAttribute("validate", false);
+
+        if ( game.totalBet() + game.getPlayersHands().get(0).getBet() > game.getUser().getCoinAmount()) {
+            model.addAttribute("validate", true);
+            return "game/inProgress";
+        }else {
+            game.playerSplit(game.getPlayersHands().get(handIndex));
+            int index = 0;
+            for (Hand hand : game.getPlayersHands()){
+                if (hand.isPair()){
+                    model.addAttribute("handIndex", index);
+                    model.addAttribute("split", true);
+                }
+                index++;
+            }
+            return "game/inProgress";
+        }
+    }
+
     @RequestMapping(method = RequestMethod.POST, params = "finish")
-    public String finish(HttpSession session, SessionStatus status) {
+    public String finish(HttpSession session, SessionStatus status, Model model) {
+        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
+
+        game.resolveWinnings();
+        User user = game.getUser();
+        userRepository.save(user);
         status.setComplete();
         return "game/mainMenu";
     }
-
-
 }

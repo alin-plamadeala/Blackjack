@@ -18,6 +18,7 @@ public enum Value {
         FOUR.intVal = 4;
         THREE.intVal = 3;
         TWO.intVal = 2;
+
     }
 
     public Integer value(){

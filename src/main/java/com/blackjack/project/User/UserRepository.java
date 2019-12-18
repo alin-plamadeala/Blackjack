@@ -1,5 +1,6 @@
 package com.blackjack.project.User;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface UserRepository extends Repository<User, Long> {
     User findById(int id);
 
     void save(User user);
+
+    List<User> findAll(Sort sort);
 }

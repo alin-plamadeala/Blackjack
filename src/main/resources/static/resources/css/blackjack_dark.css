@@ -86,6 +86,9 @@ td {
     color: white;
 }
 
-.nightswitch {
-    margin: 5px;
+th {
+    color: white;
+}
+th .row, .col{
+    color: white;
 }
