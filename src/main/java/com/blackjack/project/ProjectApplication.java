@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
@@ -23,6 +24,7 @@ public class ProjectApplication {
         messageSource.setBasename("classpath:messages/messages");
         return messageSource;
     }
+
 
 
 }

@@ -38,11 +38,11 @@ public class User {
 
     private int coinAmount;
 
-//    private final Set<GrantedAuthority> authorities = new HashSet<>();
+    private boolean darkTheme;
+
 
 
     public User() {
-        //authorities.add(new SimpleGrantedAuthority("USER"));
     }
 
     public int getId() {
@@ -118,5 +118,13 @@ public class User {
 
     public void setCoinAmount(int coinAmount) {
         this.coinAmount = coinAmount;
+    }
+
+    public boolean isDarkTheme() {
+        return darkTheme;
+    }
+
+    public void setDarkTheme(boolean darkTheme) {
+        this.darkTheme = darkTheme;
     }
 }
