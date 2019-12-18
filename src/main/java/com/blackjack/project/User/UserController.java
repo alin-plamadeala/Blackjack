@@ -5,12 +5,14 @@ import com.blackjack.project.User.Security.SecurityService;
 import com.blackjack.project.User.Security.UserService;
 import com.blackjack.project.User.Security.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
@@ -26,10 +28,10 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
+
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -74,6 +76,12 @@ public class UserController {
         }
     }
 
+    @GetMapping("/ranks")
+    public String ranks(Model model) {
+
+        model.addAttribute("rankedList", userRepository.findAll(Sort.by("coinAmount").descending()));
+        return "ranking";
+    }
 
 
 

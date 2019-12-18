@@ -5,49 +5,61 @@
 </head>
 <body>
 
-<div>
-    <h1>Dealers Hand</h1>
-    <th:block th:each="card : ${session.game.dealersHand.cards}">
-        <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
+<div class="row text-center">
+    <div class="col">
+        <h1 class="col">Dealer's Hand</h1>
+        <div class="justify-content-md-center">
+            <th:block th:each="card : ${session.game.dealersHand.cards}" class="col">
+                <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
+            </th:block>
+        </div>
+        <h5 class="col" th:text="'Totals: '+${session.game.dealersHand.finalTotal()}"></h5>
+        <p th:text="${session.game.dealersHand.result()}"></p>
+    </div>
+</div>
+
+
+<h1 class="row justify-content-md-center text-center">Your Hands</h1>
+
+<div class="row justify-content-md-center text-center">
+    <th:block th:each="hand, iter : ${session.game.playersHands}">
+        <div class="col">
+            <th:block th:each="card : ${hand.cards}">
+                <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
+            </th:block>
+
+            <h5>Totals: [(${hand.finalTotal()})]</h5>
+            <br>
+            <h5>Bet: [(${hand.bet})]<img th:src="@{/resources/images/coin.gif}" width="26px"></h5>
+
+            <div th:if="${session.game.result(hand)=='You lost!'}">
+                <div class="alert alert-danger">
+                    <h4 th:text="${hand.result()}"></h4>
+                    <h4 th:text="${session.game.result(hand)}"></h4>
+                </div>
+            </div>
+            <div th:if="${session.game.result(hand)=='Blackjack! You win!' or session.game.result(hand)=='You win!'}">
+                <div class="alert alert-success">
+                    <h4 th:text="${hand.result()}"></h4>
+                    <h4 th:text="${session.game.result(hand)}"></h4>
+                </div>
+            </div>
+            <div th:if="${session.game.result(hand)=='Push'}">
+                <div class="alert alert-warning">
+                    <h4 th:text="${hand.result()}"></h4>
+                    <h4 th:text="${session.game.result(hand)}"></h4>
+                </div>
+            </div>
+        </div>
     </th:block>
-    <!--    <p th:text="${session.game.dealersHand.toString()}"></p>-->
-    <h2>Totals</h2>
-    <p th:text="${session.game.dealersHand.finalTotal()}"></p>
-
-
-    <p th:text="${session.game.dealersHand.result()}"></p>
-
-
 </div>
 
-<div>
-    <h1>Players Hand</h1>
-    <!--    <p th:text="${session.game.playersHand.toString()}"></p>-->
-    <th:block th:each="card : ${session.game.playersHand.cards}">
-        <img th:src="@{'/resources/images/cards/'+${card}+'.png'}" width="75">
-    </th:block>
-
-    <h2>Totals</h2>
-    <p th:text="${session.game.playersHand.finalTotal()}"></p>
-
-    <p th:text="${session.game.betAmount}"></p>
-
-    <p th:text="${session.game.playersHand.result()}"></p>
-
-
-</div>
-
-<div>
-    <h1>Result</h1>
-    <p th:text="${session.game.result()}"></p>
-
-</div>
-
-<div>
+<div class="row justify-content-md-center text-center">
     <form method="POST">
         <input value="Finish" name="finish" type="submit" id="finishButton" class="submit_button">
     </form>
 </div>
+
 
 </body>
 </html>

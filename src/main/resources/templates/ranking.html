@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'profile')}"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<body>
+<table class="table table-hover">
+<thead>
+<tr>
+    <th scope="col">#</th>
+    <th scope="col">Player</th>
+    <th scope="col">Coins</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="player, iter : ${rankedList}">
+<th scope="row" th:text="${iter.count}"></th>
+    <td th:text="${player.username}"></td>
+    <td th:text="${player.coinAmount}"></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

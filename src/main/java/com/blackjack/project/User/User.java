@@ -30,30 +30,10 @@ public class User {
 
     private String email;
 
-    //initial coin amount
-
-    public int getCoinAmount() {
-        return coinAmount;
-    }
-
-    public void setCoinAmount(int coinAmount) {
-        this.coinAmount = coinAmount;
-    }
-
-    private int coinAmount;
-
-    //final coin amount when game is over
-    //private int finalCoinAmount;
-
-    //coin amount player wishes to bet
-    //private int betAmount;
-
-
-    //    private final Set<GrantedAuthority> authorities = new HashSet<>();
-
+    private double coinAmount;
 
     public User() {
-        //authorities.add(new SimpleGrantedAuthority("USER"));
+        this.coinAmount = 500;
     }
 
     public int getId() {
@@ -120,6 +100,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public double getCoinAmount() {
+        return coinAmount;
+    }
+
+    public void setCoinAmount(double coinAmount) {
+        this.coinAmount = coinAmount;
     }
 
 }

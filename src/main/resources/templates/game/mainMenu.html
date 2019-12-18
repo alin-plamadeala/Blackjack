@@ -1,21 +1,17 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'play')}">
 <body>
 <h1>Welcome to Blackjack!</h1>
-<h3>Place your bet and Click to start a new game</h3>
-
-<!-------------------------- bet ------------------------------->
-<div class="total">Total Coins : <span id="coins">100</span>
+<h3>Place your bet and Click to start a new game. (Min: $5 Max: $1000, increments of 5)</h3>
 
 <div>
 
-
 </div>
-<p th:text="${session.betAmount}"></p>
-<!-- end bet-->
 <form method="POST">
-    <input type="text" name="amount">
+    <input type="text" name="amount" required>
     <input type="submit" value="New Game">
+    <p th:if="${validate}">Invalid bet! </p>
 </form>
+
 
 </body>
 
