@@ -74,6 +74,10 @@ public class BlackJackGame {
 
     }
 
+    public void playerDouble(Hand hand){
+        hand.setBet(hand.getBet()*2);
+    }
+
     public void playerHit(Hand hand) {
         hand.addCard(shoe.draw());
     }
@@ -128,10 +132,6 @@ public class BlackJackGame {
         return true;
     }
 
-    //method to update player's play money
-    public void deductBet(double bet) {
-        user.setCoinAmount(user.getCoinAmount() - bet);
-    }
 
     public List<Hand> getPlayersHands() {
         return playersHands;
