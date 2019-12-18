@@ -33,6 +33,7 @@ public class User {
     private double coinAmount;
 
     public User() {
+        this.coinAmount = 500;
     }
 
     public int getId() {
