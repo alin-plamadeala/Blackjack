@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class Hand {
 
+    private boolean doubleUp = true;
     private boolean active = false;
     private boolean finished = false;
     private double bet;
@@ -114,5 +115,13 @@ public class Hand {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public boolean isDoubleUp() {
+        return doubleUp;
+    }
+
+    public void setDoubleUp(boolean doubleUp) {
+        this.doubleUp = doubleUp;
     }
 }

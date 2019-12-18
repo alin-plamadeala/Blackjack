@@ -35,6 +35,9 @@
             <th:block th:if="${hand.active}">
             <form method="POST">
                 <input type="hidden" th:value="${iter.index}" name="hand">
+                <th th:if="${hand.doubleUp}">
+                <input value="Double Up" name="doubleUp" type="submit" id="doubleUpButton" class="submit_button">
+                </th>
                 <th:block th:if="${!session.game.handBusted(hand)}">
                     <div th:if="${split} and ${handIndex == iter.index}">
                         <th:block th:if="${validate}">
@@ -52,8 +55,6 @@
     </th:block>
 
 </div>
-
-
 
 </body>
 </html>

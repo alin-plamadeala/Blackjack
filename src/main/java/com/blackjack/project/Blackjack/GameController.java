@@ -123,6 +123,24 @@ public class GameController {
         }
     }
 
+    @RequestMapping(method = RequestMethod.POST, params = "doubleUp")
+    public String doubleUp(HttpSession session, Model model, @RequestParam("hand") int handIndex) {
+        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
+
+        game.playerDouble(game.getPlayersHands().get(handIndex));
+        game.playerHit(game.getPlayersHands().get(handIndex));
+        game.getPlayersHands().get(handIndex).setActive(false);
+        game.getPlayersHands().get(handIndex).setFinished(true);
+        game.getPlayersHands().get(handIndex).setDoubleUp(false);
+
+        if (game.playerBustedAllHands() || game.playerDoneAllHands()) {
+            game.resolveDealerHand();
+            return "game/endGame";
+        } else {
+            return "game/inProgress";
+        }
+    }
+
     @RequestMapping(method = RequestMethod.POST, params = "finish")
     public String finish(HttpSession session, SessionStatus status, Model model) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
