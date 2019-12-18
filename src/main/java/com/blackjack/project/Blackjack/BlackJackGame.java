@@ -36,18 +36,13 @@ public class BlackJackGame {
         dealersHand = new Hand(bet);
         dealersHand.addCard(shoe.draw());
 
-        Card card1 = new Card(SPADE, Value.ACE);
-        Card card2 = new Card(HEART, Value.ACE);
-
         Hand playersHand = new Hand(bet);
         playersHand.setActive(true);
         playersHands = new ArrayList<Hand>();
         playersHands.add(playersHand);
         for (int i = 0; i< playersHands.size(); i++){
-//            playersHands.get(i).addCard(shoe.draw());
-//            playersHands.get(i).addCard(shoe.draw());
-            playersHands.get(i).addCard(card1);
-            playersHands.get(i).addCard(card2);
+            playersHands.get(i).addCard(shoe.draw());
+            playersHands.get(i).addCard(shoe.draw());
         }
 
     }
@@ -72,10 +67,6 @@ public class BlackJackGame {
             newHand.addCard(hand.getCards().get(1));
             newHand1.addCard(hand.getCards().get(0));
             newHand1.setActive(true);
-
-
-            Card card1 = new Card(Suit.DIAMOND, Value.ACE);
-            newHand1.addCard(card1);
 
             playersHands.remove(hand);
             playersHands.add(newHand1);
@@ -165,21 +156,33 @@ public class BlackJackGame {
             return "You win!";
         }
     }
-    public double resolveWinnings(){
-        double totalWinnings = 0;
+
+    public double totalBet(){
+        double betTotal = 0;
         for (Hand hand : getPlayersHands()){
-            if (result(hand).equals("You lost!")) {
-            } else if (result(hand).equals("You win!")){
-                user.setCoinAmount(user.getCoinAmount()+(hand.getBet()*2));
-                totalWinnings = totalWinnings + hand.getBet();
-            } else if (result(hand).equals("Blackjack! You win!")){
-                user.setCoinAmount(user.getCoinAmount()+(hand.getBet()*2.5));
-                totalWinnings = totalWinnings + hand.getBet()*1.5;
-            } else if (result(hand).equals("Push")){
-                user.setCoinAmount(user.getCoinAmount()+hand.getBet());
+            betTotal = betTotal + hand.getBet();
+        }
+        return betTotal;
+    }
+
+
+    public void resolveWinnings(){
+        for (Hand hand : getPlayersHands()){
+            switch (result(hand)) {
+                case "You lost!":
+                    user.setCoinAmount(user.getCoinAmount() - hand.getBet());
+                    break;
+                case "You win!":
+                    user.setCoinAmount(user.getCoinAmount() + (hand.getBet()));
+                    break;
+                case "Blackjack! You win!":
+                    user.setCoinAmount(user.getCoinAmount() + (hand.getBet() * 1.5));
+                    break;
+                case "Push":
+                    user.setCoinAmount(user.getCoinAmount());
+                    break;
             }
         }
-        return totalWinnings;
     }
 
 }

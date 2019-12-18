@@ -28,35 +28,38 @@ public class GameController {
     private UserRepository userRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String printWelcome() {
-        return "game/mainMenu";
+    public String printWelcome(HttpSession session) {
+        BlackJackGame game = (BlackJackGame) session.getAttribute("game");
+        if (game == null) {
+            return "game/mainMenu";
+        }
+    else {
+            return "game/inProgress";
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String startNewGame(Model model, HttpSession session, @RequestParam("amount") int amount, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        //evaluate if bet amount is not higher than start coins
-        model.addAttribute("validate", false);
-        if (amount > user.getCoinAmount()) {
-            model.addAttribute("validate", true);
-            return "game/mainMenu";
-        }else {
-            BlackJackGame game = new BlackJackGame(amount);
-            game.setUser(user);
-            session.setAttribute("game", game);
-            game.deductBet(amount);
-            userRepository.save(game.getUser());
-
-            int index = 0;
-            for (Hand hand : game.getPlayersHands()){
-                if (hand.isPair()){
-                    model.addAttribute("handIndex", index);
-                    model.addAttribute("split", true);
+            User user = userService.findByUsername(principal.getName());
+            //evaluate if bet amount is not higher than start coins
+            model.addAttribute("validate", false);
+            if (amount < 1 || amount > 1000 || amount > user.getCoinAmount() || amount % 5 != 0) {
+                model.addAttribute("validate", true);
+                return "game/mainMenu";
+            }else {
+                BlackJackGame game = new BlackJackGame(amount);
+                game.setUser(user);
+                session.setAttribute("game", game);
+                int index = 0;
+                for (Hand hand : game.getPlayersHands()) {
+                    if (hand.isPair()) {
+                        model.addAttribute("handIndex", index);
+                        model.addAttribute("split", true);
+                    }
+                    index++;
                 }
-                index++;
             }
-            return "game/inProgress";
-        }
+                return "game/inProgress";
     }
 
 
@@ -102,13 +105,11 @@ public class GameController {
     public String split(HttpSession session, Model model, @RequestParam("hand") int handIndex) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
         model.addAttribute("validate", false);
-        if (game.getPlayersHands().get(0).getBet() > game.getUser().getCoinAmount()) {
+
+        if ( game.totalBet() + game.getPlayersHands().get(0).getBet() > game.getUser().getCoinAmount()) {
             model.addAttribute("validate", true);
             return "game/inProgress";
         }else {
-            game.deductBet(game.getPlayersHands().get(handIndex).getBet());
-            userRepository.save(game.getUser());
-
             game.playerSplit(game.getPlayersHands().get(handIndex));
             int index = 0;
             for (Hand hand : game.getPlayersHands()){
@@ -126,10 +127,10 @@ public class GameController {
     public String finish(HttpSession session, SessionStatus status, Model model) {
         BlackJackGame game = (BlackJackGame) session.getAttribute("game");
 
+        game.resolveWinnings();
         User user = game.getUser();
         userRepository.save(user);
-        model.addAttribute("totalWinnings", game.resolveWinnings());
         status.setComplete();
-        return "game/results";
+        return "game/mainMenu";
     }
 }

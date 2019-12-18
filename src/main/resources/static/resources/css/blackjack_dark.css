@@ -85,3 +85,9 @@ table {
 td {
     color: white;
 }
+th {
+    color: white;
+}
+th .row, .col{
+    color: white;
+}
